@@ -68,7 +68,7 @@ classdef Nrlmsise00 < ModelBase
 
             Parameters.position_precision__m = position_precision__m;
 
-            %% Add header files, include directories and source files of nrlmsise00 model to Setup Parameters
+            %% Add header files, include directories and source files of nrlmsise00 model to Settings Parameters
 
             [this_folder,~,~] = fileparts(mfilename("fullpath"));
             c_code_folder = fullfile(this_folder, "..", "c_code");
@@ -83,12 +83,12 @@ classdef Nrlmsise00 < ModelBase
                             + "nrlmsise-00.c" + newline ...
                             + "nrlmsise-00_data.c" + newline;
 
-            Setup = [SimulinkModelParameter("SimCustomHeaderCode", include_headers), ...
-                        SimulinkModelParameter("SimUserIncludeDirs", include_directories), ...
-                        SimulinkModelParameter("SimUserSources", source_files)];
+            Settings = [SimulinkModelSetting("SimCustomHeaderCode", include_headers), ...
+                        SimulinkModelSetting("SimUserIncludeDirs", include_directories), ...
+                        SimulinkModelSetting("SimUserSources", source_files)];
 
             %% Set Parameters in ModelBase Constructor
-            obj = obj@ModelBase("Parameters", Parameters,"Setup", Setup);
+            obj = obj@ModelBase("Parameters", Parameters,"Settings", Settings);
         end
         
     end

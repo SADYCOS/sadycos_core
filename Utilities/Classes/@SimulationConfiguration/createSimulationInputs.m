@@ -16,12 +16,12 @@ for index = 1:num_simulations
     TheBusesInfo = BusesInfo(index);
     the_simulation_input = simulation_inputs(index);
 
-    %% Set Simulink Model Parameters from Setup structure
-    for simulink_model_parameter = TheParameters.Setup
+    %% Set Simulink Model Parameters from Settings structure
+    for simulink_model_parameter = TheParameters.Settings
         the_simulation_input = the_simulation_input.setModelParameter(simulink_model_parameter.name, simulink_model_parameter.value);
     end
-    % remove Setup from Parameters, so the Parameters structure can be used within Simulink
-    TheParameters = rmfield(TheParameters, 'Setup');
+    % remove Settings from Parameters, so the Parameters structure can be used within Simulink
+    TheParameters = rmfield(TheParameters, 'Settings');
 
     %% Set Variables
     % Parameters

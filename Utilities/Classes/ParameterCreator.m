@@ -135,10 +135,10 @@ classdef ParameterCreator < handle
             Parameters = struct();
 
             %% Simulation Duration
-            Parameters.Setup(1) = SimulinkModelParameter("StopTime", convertCharsToStrings(num2str(obj.simulation_duration__s)));
+            Parameters.Settings(1) = SimulinkModelSetting("StopTime", convertCharsToStrings(num2str(obj.simulation_duration__s)));
 
             %% Simulation Mode
-            Parameters.Setup(2) = SimulinkModelParameter("SimulationMode", obj.simulation_mode);
+            Parameters.Settings(2) = SimulinkModelSetting("SimulationMode", obj.simulation_mode);
 
             %% Pacing
             if obj.enable_pacing
@@ -146,8 +146,8 @@ classdef ParameterCreator < handle
             else
                 enable_pacing_string = "off";
             end
-            Parameters.Setup(3) = SimulinkModelParameter("EnablePacing", enable_pacing_string);
-            Parameters.Setup(4) = SimulinkModelParameter("PacingRate", convertCharsToStrings(num2str(obj.pacing_rate)));
+            Parameters.Settings(3) = SimulinkModelSetting("EnablePacing", enable_pacing_string);
+            Parameters.Settings(4) = SimulinkModelSetting("PacingRate", convertCharsToStrings(num2str(obj.pacing_rate)));
 
             %% Send Simulation Data
             Parameters.General.enable_send_sim_data = obj.enable_send_sim_data;
@@ -190,26 +190,26 @@ classdef ParameterCreator < handle
                     % copy the parameters of the model to the Parameters structure
                     Parameters.(subsystem).(class(model)) = model.Parameters;
 
-                    % copy the Setup parameters of the model to the Parameters structure
-                    if ~isempty(model.Setup)
-                        for parameter = model.Setup
-                            % check if parameter with that name already exists in the Setup structure
-                            parameter_index = find(strcmp(parameter.name, [Parameters.Setup.name]), 1);
-                            if ~isempty(parameter_index)
-                                % parameter with that name already exists
+                    % copy the Settings of the model to the Parameters structure
+                    if ~isempty(model.Settings)
+                        for setting = model.Settings
+                            % check if setting with that name already exists in the Settings structure
+                            setting_index = find(strcmp(setting.name, [Parameters.Settings.name]), 1);
+                            if ~isempty(setting_index)
+                                % setting with that name already exists
 
-                                % check if parameter is one of the parameters that can be combined
-                                if ismember(parameter.name, ["SimCustomHeaderCode", "SimUserIncludeDirs", "SimUserSources"])
+                                % check if setting is one of the settings that can be combined
+                                if ismember(setting.name, ["SimCustomHeaderCode", "SimUserIncludeDirs", "SimUserSources"])
                                     % combine the two values with a newline
-                                    Parameters.Setup(parameter_index).value ...
-                                        = Parameters.Setup(parameter_index).value + newline + parameter.value;
+                                    Parameters.Settings(setting_index).value ...
+                                        = Parameters.Settings(setting_index).value + newline + setting.value;
                                 else
-                                    error("Simulink Model Parameter %s already exists and cannot be combined.", parameter.name);
+                                    error("Simulink Model Parameter %s already exists and cannot be combined.", setting.name);
                                 end
 
                             else
-                                % parameter with that name does not exist -> add it
-                                Parameters.Setup(end+1) = parameter;
+                                % setting with that name does not exist -> add it
+                                Parameters.Settings(end+1) = setting;
                             end
                         end
                     end

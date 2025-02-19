@@ -2,7 +2,7 @@ classdef (Abstract) ModelBase < handle
 
     properties (SetAccess = protected, GetAccess = public)
         Parameters (1,1) struct
-        Setup (1,:) SimulinkModelParameter
+        Settings (1,:) SimulinkModelSetting
     end
 
     methods (Abstract, Static)
@@ -14,11 +14,11 @@ classdef (Abstract) ModelBase < handle
         function obj = ModelBase(NameValueArgs)
             arguments
                 NameValueArgs.Parameters (1,1) struct = struct()
-                NameValueArgs.Setup (1,:) SimulinkModelParameter = SimulinkModelParameter.empty(1,0)
+                NameValueArgs.Settings (1,:) SimulinkModelSetting = SimulinkModelSetting.empty(1,0)
             end
 
             obj.Parameters = NameValueArgs.Parameters;
-            obj.Setup = NameValueArgs.Setup;
+            obj.Settings = NameValueArgs.Settings;
         end
 
     end
