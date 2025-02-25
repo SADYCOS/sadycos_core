@@ -18,6 +18,6 @@ theta_gmst = pi/180*1/240*mod(24110.54841+ 8640184.812866*t_0+0.093104*t_0^2-6.2
                         time_current.Second),86400);
 
 % make quaternion from angle
-earth_quaternion_EI = axang2quat([0,0,1,theta_gmst])';
+earth_quaternion_EI = smu.unitQuat.rot.fromAxisAngle([0;0;1], theta_gmst);
 end
 
