@@ -30,7 +30,11 @@ for i = 1:numdays
     for j = 1:8
         ind = (i-1) * 8 + j;
         date = datetime(startdate(1),1,startdate(2)) + i-1 + (j-1)/8;
-        Nrlmsise00Data(ind).mjd = mjuliandate(date);
+        
+        y = year(date);
+        m = month(date);
+        d = day(day) + timeofday(date) / days(1);
+        Nrlmsise00Data(ind).mjd = smu.time.modifiedJulianDateFromCalDat(y, m, d);
 
         the_years(ind) = year(date);
         the_days(ind) = day(date, 'dayofyear');

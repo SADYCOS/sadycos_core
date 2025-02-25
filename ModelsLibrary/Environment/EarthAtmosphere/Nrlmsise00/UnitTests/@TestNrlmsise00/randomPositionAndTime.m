@@ -52,12 +52,12 @@ matlab_temperature = T(:,2);
 disp(">>> Calculating atmospheric data using c implementation in Simulink.")
 [x,y,z] = geodetic2ecef(wgs84Ellipsoid,lat,lon,alt);
 
-h = floor(UTseconds/3600);
-m = floor(UTseconds/60 - h * 60);
-s = UTseconds - (h * 60 + m) * 60;
-dates = datetime(year, 1, 1);
-dates = dates + dayOfYear - 1 + hours(h) + minutes(m) + seconds(s);
-mjd = mjuliandate(dates);
+mjd = nan(1,n);
+for i = 1:n
+    [month, fractional_day] = calDatFromDoySod(year(i), dayOfYear(i), UTseconds(i));
+
+    mjd(i) = modifiedJulianDateFromCalDat(year(i), month, fractional_day);
+end
 
 Nrlmsise00Data = Nrlmsise00.loadProcessedSpaceWeatherData();
 
