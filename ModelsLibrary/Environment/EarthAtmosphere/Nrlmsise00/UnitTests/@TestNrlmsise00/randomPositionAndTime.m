@@ -54,9 +54,9 @@ disp(">>> Calculating atmospheric data using c implementation in Simulink.")
 
 mjd = nan(1,n);
 for i = 1:n
-    [month, fractional_day] = calDatFromDoySod(year(i), dayOfYear(i), UTseconds(i));
+    [month, fractional_day] = smu.time.calDatFromDoySod(year(i), dayOfYear(i), UTseconds(i));
 
-    mjd(i) = modifiedJulianDateFromCalDat(year(i), month, fractional_day);
+    mjd(i) = smu.time.modifiedJulianDateFromCalDat(year(i), month, fractional_day);
 end
 
 Nrlmsise00Data = Nrlmsise00.loadProcessedSpaceWeatherData();
