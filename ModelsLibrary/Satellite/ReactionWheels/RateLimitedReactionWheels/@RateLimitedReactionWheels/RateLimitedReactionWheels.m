@@ -29,7 +29,7 @@ classdef RateLimitedReactionWheels < GenericReactionWheels
                 inertias__kg_m2 % is validated in base class constructor
                 spin_directions_B (3,:) % is validated in base class constructor
                 friction_coefficients__N_m_s_per_rad (:,1) % is validated in base class constructor
-                maximum_frequencies__rad_per_s (1,:) {mustBePositive, mustBeEqualLength(maximum_frequencies__rad_per_s, inertias__kg_m2, 2, 1)}
+                maximum_frequencies__rad_per_s (1,:) {mustBePositive, smu.argumentValidation.mustBeEqualLength(maximum_frequencies__rad_per_s, inertias__kg_m2, 2, 1)}
             end
 
             obj = obj@GenericReactionWheels(inertias__kg_m2, ...

@@ -17,7 +17,7 @@ classdef GenericMagneticTorquers < ModelBase
 
             arguments
                 directions_B (3,:) {mustBeNumeric, mustBeReal, mustBeUnitColumns}
-                max_dipole_moments__A_m2 (1,:) {mustBePositive, mustBeEqualLength(max_dipole_moments__A_m2, directions_B, 2, 2)}
+                max_dipole_moments__A_m2 (1,:) {mustBePositive, smu.argumentValidation.mustBeEqualLength(max_dipole_moments__A_m2, directions_B, 2, 2)}
             end
             
             Parameters.directions_B = directions_B;

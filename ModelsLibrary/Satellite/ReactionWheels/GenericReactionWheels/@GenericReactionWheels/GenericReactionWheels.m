@@ -25,8 +25,8 @@ classdef GenericReactionWheels < ModelBase
 
             arguments
                 inertias__kg_m2 (:,1) {mustBePositive}
-                spin_directions_B (3,:) {mustBeNumeric, mustBeReal, mustBeEqualLength(spin_directions_B, inertias__kg_m2, 2, 1), mustBeUnitColumns}
-                friction_coefficients__N_m_s_per_rad (:,1) {mustBeNonnegative, mustBeEqualLength(friction_coefficients__N_m_s_per_rad, inertias__kg_m2, 1, 1)}
+                spin_directions_B (3,:) {mustBeNumeric, mustBeReal, smu.argumentValidation.mustBeEqualLength(spin_directions_B, inertias__kg_m2, 2, 1), mustBeUnitColumns}
+                friction_coefficients__N_m_s_per_rad (:,1) {mustBeNonnegative, smu.argumentValidation.mustBeEqualLength(friction_coefficients__N_m_s_per_rad, inertias__kg_m2, 1, 1)}
             end
 
             Parameters.inertias__kg_m2 = inertias__kg_m2;
